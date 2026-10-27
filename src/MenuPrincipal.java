@@ -1,11 +1,18 @@
 import java.util.Scanner;
 
 public class MenuPrincipal {
+
     public static void main(String[] args) {
-        int opcion = 0;
+        //inicializamos el escanner
         Scanner scanner = new Scanner(System.in);
+        //creamos el objero agenda
+        Agenda agenda = new Agenda();
+        //Variable de opciones
+        int opcion = 0;
+
         System.out.println("Por favor escoja una opcion");
-        while(opcion<10 && opcion>0){
+        //Menu de opciones
+        while(opcion != 10){
             System.out.println("=== AGENDA DE CONTACTOS ===");
             System.out.println("1. Agregar contacto");
             System.out.println("2. Buscar contacto");
@@ -19,56 +26,101 @@ public class MenuPrincipal {
             System.out.println("10. Salir");
             System.out.println("===========================================");
             System.out.println("Elige una opcion");
-            opcion = scanner.nextInt();
+
+            //validacion hasNextInt
+            if(scanner.hasNextInt()){
+                opcion = scanner.nextInt();
+                scanner.nextLine();
+
 
             switch (opcion){
+                //agregar contacto
                 case 1: {
                     System.out.println("Ingresa el nombre del contacto");
-                    String nombre = scanner.next();
+                    String nombre = scanner.nextLine();
                     System.out.println("Ingresa el telefono del contacto");
-                    String telefono = scanner.next();
+                    String telefono = scanner.nextLine();
                     System.out.println("Ingresa el email del contacto");
-                    String email = scanner.next();
+                    String email = scanner.nextLine();
+
+                    Contacto nuevocontacto = new Contacto(nombre, telefono, email);
+                    agenda.agregarContacto(nuevocontacto);
+                    break;
                 }
+                //Buscar contacto
                 case 2: {
                     System.out.println("Ingresa el nombre del contacto");
-                    String nombre = scanner.next();
+                    String nombre = scanner.nextLine();
+                    Contacto encontrado = agenda.buscarContacto(nombre);
+                    if(encontrado != null){
+                        System.out.println("Contacto "+encontrado.toString()+ "Encontrado");
+                    }else{
+                        System.out.println("Contacto no encontrado");
+                    }
+                    break;
                 }
+                //Eliminar contacto
                 case 3: {
                     System.out.println("Ingresa el nombre del contacto");
-                    String nombre = scanner.next();
+                    String nombre = scanner.nextLine();
+                    agenda.eliminarContacto(nombre);
+                    break;
                 }
+                //Listar contactos en orden alfabetico
                 case 4: {
-                    //Agenda.listarContacto();
+                    agenda.listarContactos();
+                    break;
                 }
+                //Listar contactos en orden inserccion
                 case 5: {
-                    //Agenda.listarHistorial();
+                    agenda.listarHistorial();
+                    break;
                 }
+                //Agregar grupo
                 case 6: {
                     System.out.println("Ingresa el nombre del grupo");
-                    String nombre = scanner.next();
-                    //Agenta.agregarGrupo();
+                    String nombreGrupo = scanner.nextLine();
+                    agenda.agregarGrupo(nombreGrupo);
+                    break;
                 }
+                //Agregar contacto a grupo
                 case 7: {
                     System.out.println("Ingresa el nombre del contacto");
-                    String nombre = scanner.next();
+                    String nombre = scanner.nextLine();
                     System.out.println("Ingresa el telefono del grupo");
-                    String grupo = scanner.next();
-                    //Agenda.agregarContactoAGrupo(nombre,grupo);
+                    String grupo = scanner.nextLine();
+                    agenda.agregarContactoAGrupo(nombre,grupo);
                 }
+                //Listar grupos
                 case 8: {
-                    //Agenda.listarGrupos();
+                    agenda.listarGrupos();
+                    break;
                 }
+                //Mostrar contactos por grupo
                 case 9: {
                     System.out.println("Ingresa el nombre del grupo");
-                    String nombreGrupo = scanner.next();
-                    //Agenda.mostrarContactosPorGrupos(nombreGrupo)
+                    String nombreGrupo = scanner.nextLine();
+                    agenda.mostrarContactosPorGrupos(nombreGrupo);
+                    break;
                 }
+                //Salir del menu
+                case 10: {
+                    System.out.println("Saliendo del menu");
+                    break;
+                } default:
+                    System.out.println("Opcion invalida elige una opcion nueva:");
+                    break;
 
 
             }
 
-        }scanner.close();
+            }else {
+                System.out.println("Opcion invalida elige una opcion del 1 al 10");
+            }
+
+        }
+        //cerrar el scanner
+        scanner.close();
 
     }
 }

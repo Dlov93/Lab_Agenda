@@ -1,11 +1,13 @@
 import java.util.*;
 
 public class Agenda {
-    private Map<String,Contacto> contactos = new TreeMap<>();
-    private Set<String> grupos = new TreeSet<>();
-    private Map<String, Set<String>> gruposContactos = new TreeMap<>();
+    //inicializacionde arrays
+    private Map<String,Contacto> contactos = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private Set<String> grupos = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+    private Map<String, Set<String>> gruposContactos = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private List<Contacto> contactosList = new ArrayList<>();
 
+    //metodo de agregar contacto
     public void agregarContacto (Contacto c){
 
         if (contactos.containsKey(c.getNombre())){
@@ -18,12 +20,12 @@ public class Agenda {
         }
 
     }
-
+    //Metodo de buscar contacto
     public Contacto buscarContacto (String nombre){
         //retornar el contacto o null si no existe
         return contactos.get(nombre);
     }
-
+    //metodo eiminar contacto
     public boolean  eliminarContacto(String nombre){
         //eliminar el usuario del map y de los grupos
         //return true;
@@ -42,7 +44,7 @@ public class Agenda {
         System.out.println("El contacto "+nombre+" se ha eliminado");
         return true;
     }
-
+    //metodo para listar contactos
     public void listarContactos(){
         //muestra todos los contactos en orden alfabetico
         //TreeMap
@@ -51,7 +53,7 @@ public class Agenda {
             System.out.println(contacto.toString());
         }
     }
-
+    //metodo para listarHistorial
     public void listarHistorial(){
         /*el historial es una List<Contacto> que guarda los
            contactos en el orden en que se agregaron. Es independiente del TreeMap , que los
@@ -65,6 +67,7 @@ public class Agenda {
         }
 
     }
+    //metodo para agregarGrupo
     public void agregarGrupo(String nombreGrupo){
         if(grupos.contains(nombreGrupo)){
             System.out.println("El Grupo "+nombreGrupo+" ya existe");
@@ -76,6 +79,7 @@ public class Agenda {
         }
         //si ya existe muestra error
     }
+    //metodo para agregar contacto a grupo
     public void agregarContactoAGrupo(String nombreContacto, String nombreGrupo){
         //agregar nombre del contato al grupo calidar que ambos existan
         if(!contactos.containsKey(nombreContacto)){
@@ -90,7 +94,7 @@ public class Agenda {
         System.out.println("El contacto "+nombreContacto+" se ha agregado al grupo");
 
     }
-
+    //metodo para listar los grupos en orden alfabetico
     public void listarGrupos(){
         //Muestra los gurpos en orden alfabetico
         System.out.println("Grupos en orden alfabetico:");
@@ -98,7 +102,7 @@ public class Agenda {
             System.out.println(" + "+grupo);
         }
     }
-
+    //metodo para moatrarcontactos por grupo
     public void mostrarContactosPorGrupos(String nombreGrupo){
         //muestra lis contactos del grupo si el grupo no existe o esta vacio muestra error
         if(!grupos.contains(nombreGrupo)){
